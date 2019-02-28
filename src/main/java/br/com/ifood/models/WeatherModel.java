@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name="weather")
+@Entity(name = "weather")
 public class WeatherModel {
 	
 	@Id

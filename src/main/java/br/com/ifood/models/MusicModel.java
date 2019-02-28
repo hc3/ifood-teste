@@ -1,6 +1,10 @@
 package br.com.ifood.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import br.com.ifood.models.WeatherModel;
@@ -8,7 +12,12 @@ import br.com.ifood.models.WeatherModel;
 @Entity(name = "music")
 public class MusicModel {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	@Column(nullable = false)
 	private String lat;
+	@Column(nullable = false)
 	private String lon;
 
 	private String category;
