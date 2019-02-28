@@ -1,4 +1,4 @@
-package br.com.repositories;
+package br.com.ifood.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

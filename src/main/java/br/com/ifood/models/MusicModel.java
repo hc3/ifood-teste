@@ -7,31 +7,45 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import br.com.ifood.models.WeatherModel;
-
 @Entity(name = "music")
 public class MusicModel {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	
 	@Column(nullable = false)
 	private String lat;
+	
 	@Column(nullable = false)
 	private String lon;
 
-	private String category;
-
+	@Column(nullable = false)
+	private String category;	
+	
+	@Column(nullable = false)
+	private String spotify;
+	
 	@OneToOne
 	private WeatherModel weatherModel;
 	
-	public MusicModel(String lat, String lon, String category, WeatherModel weatherModel) {
-		super();
-		this.lat = lat;
-		this.lon = lon;
-		this.category = category;
-		this.weatherModel = weatherModel;
+
+	public Long getId() {
+		return id;
 	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getSpotify() {
+		return spotify;
+	}
+
+	public void setSpotify(String spotify) {
+		this.spotify = spotify;
+	}
+
 
 	public String getLat() {
 		return lat;
@@ -64,5 +78,6 @@ public class MusicModel {
 	public void setWeatherModel(WeatherModel weatherModel) {
 		this.weatherModel = weatherModel;
 	}
+
 
 }
