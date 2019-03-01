@@ -1,30 +1,34 @@
 package br.com.ifood;
 
-import org.aspectj.lang.annotation.Before;
+import static com.jayway.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.AfterClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import static com.jayway.restassured.RestAssured.*;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.jayway.restassured.RestAssured;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+
+import static io.restassured.RestAssured.given;
 
 import br.com.ifood.repositories.MusicRepository;
 
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = Application.class)
-@SpringBootTest
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringBootWebApplication.class)
+@TestPropertySource(value={"classpath:application-test.properties"})
+@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ApplicationTests {
 
 	JSONObject musicJson = new JSONObject();
