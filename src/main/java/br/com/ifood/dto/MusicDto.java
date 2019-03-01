@@ -2,22 +2,36 @@ package br.com.ifood.dto;
 
 import javax.validation.constraints.NotBlank;
 
-import br.com.ifood.models.WeatherModel;
-
 public class MusicDto {
 
-	
 	private Long id;
+	
 	@NotBlank
 	private String lat;
 	@NotBlank
 	private String lon;
 
 	private String category;
-	
+
 	private String spotify;
-	
-	private WeatherModel weatherModel;
+
+	private Integer temp;
+
+	private Integer temp_min;
+
+	private Integer humidity;
+
+	private Integer pressure;
+
+	private Integer temp_max;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getLat() {
 		return lat;
@@ -35,15 +49,6 @@ public class MusicDto {
 		this.lon = lon;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
 	public String getCategory() {
 		return category;
 	}
@@ -60,12 +65,47 @@ public class MusicDto {
 		this.spotify = spotify;
 	}
 
-	public WeatherModel getWeatherModel() {
-		return weatherModel;
+	public Integer getTemp() {
+		return temp;
 	}
 
-	public void setWeatherModel(WeatherModel weatherModel) {
-		this.weatherModel = weatherModel;
+	public void setTemp(Integer temp) {
+		this.temp = temp;
 	}
+
+	public Integer getTemp_min() {
+		return temp_min;
+	}
+
+	public void setTemp_min(Integer temp_min) {
+		this.temp_min = temp_min;
+	}
+
+	public Integer getHumidity() {
+		return humidity;
+	}
+
+	public void setHumidity(Integer humidity) {
+		this.humidity = humidity;
+	}
+
+	public Integer getPressure() {
+		return pressure;
+	}
+
+	public void setPressure(Integer pressure) {
+		this.pressure = pressure;
+	}
+
+	public Integer getTemp_max() {
+		return temp_max;
+	}
+
+	public void setTemp_max(Integer temp_max) {
+		this.temp_max = temp_max;
+	}
+
+	
+	
 
 }

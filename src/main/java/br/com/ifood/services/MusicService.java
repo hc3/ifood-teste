@@ -4,9 +4,14 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.ifood.dto.MusicDto;
 import br.com.ifood.models.MusicModel;
@@ -16,7 +21,7 @@ import br.com.ifood.repositories.MusicRepository;
 public class MusicService extends AbstractService {
 
 	private static String url = "https://api.spotify.com/v1/browse/categories/";
-	private static String token = "BQBeTTzKqmi5thkO2RP79fv5U2mhQTYa7VYj93M1xtUTNk25L_pexv4nWg_PYCMLZuONzTw975jwYAJjavYXPbjfzmB2XwXhbCAIdSl8D1kwccNFL-tm9rkiFxw1dRFJbBegS5r5V2w0oNU";
+	private static String token = "BQBuaoIPmMpTH3wJAqdtap7m4udC6OFIWlowYebgv-MIyngcE_QJofkgA4Biy4ELkxhKPg3oQ2H1UARMb5tckNZfVnG00rZmuUCNsoAjXmpeoknpzevZCrEUiMh1r0bftB_B3b5eiz-NFRk";
 
 	@Autowired
 	private MusicRepository musicRepository;
@@ -33,14 +38,19 @@ public class MusicService extends AbstractService {
 		return convertSimple(musicRepository.findById(id), MusicDto.class);
 	}
 
-	public MusicModel save(MusicDto user) {
-		return musicRepository.save(convertSimple(user, MusicModel.class));
+	public MusicModel save(String json ,MusicDto  musicDto) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper m = new ObjectMapper();
+		MusicDto jsonDto = m.readValue(json.toString(), MusicDto.class);
+		musicDto.setSpotify(jsonDto.getSpotify());
+		return musicRepository.save(convertSimple(musicDto, MusicModel.class));
 	}
 
 	public JSONObject searchMusicSpotifyCategory(String category) {
 		JSONObject jsonResponse = new JSONObject();
 		try {
-			jsonResponse = requestService.request(MusicService.url + category  + "/playlists?country=BR&limit=10&offset=5" , "GET", MusicService.token);
+			jsonResponse = requestService.request(url + category + "/playlists?country=BR&limit=10&offset=5", "GET",
+					token);
+			System.out.println(jsonResponse.toString());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -49,4 +59,11 @@ public class MusicService extends AbstractService {
 		return jsonResponse;
 	}
 
+	public JSONObject parseJsonReturn (JSONObject json) {
+		
+		JSONObject jsonServiceSpotify = json.getJSONObject("playlists");
+		JSONArray arrayJson = jsonServiceSpotify.getJSONArray("items");
+		jsonServiceSpotify = new JSONObject(arrayJson.get(0).toString());
+		return (JSONObject) jsonServiceSpotify.get("external_urls");
+	}
 }

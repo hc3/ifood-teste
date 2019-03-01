@@ -20,15 +20,14 @@ public class RequestService {
 		try  {
 			URL myurl = new URL(url);
 			con = (HttpURLConnection) myurl.openConnection();
-
-			// con.setRequestProperty("Accept", "application/json");
+			
+			con.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
+			con.setRequestProperty("Accept","*/*");
 			con.setRequestProperty("Content-Type", "application/json");
 			
 			if (token != null) con.setRequestProperty("Authorization", "Bearer " + token);
 			
 			con.setRequestMethod(method);
-			
-			System.out.println(con);
 			StringBuffer content;
  
 			try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
