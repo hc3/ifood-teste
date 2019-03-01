@@ -52,12 +52,9 @@ public class WeatherService extends AbstractService {
 	}
 
 	public String searchCategoryBaseTemp(MusicDto musicDto) {
-		if (musicDto.getTemp() > 30)
-			category = "party";
-		if (musicDto.getTemp() >= 15 && musicDto.getTemp() <= 30)
-			category = "pop";
-		if (musicDto.getTemp() >= 10 && musicDto.getTemp() <= 14)
-			category = "rock";
+		if (musicDto.getTemp() > 30) category = "party";
+		if (musicDto.getTemp() >= 15 && musicDto.getTemp() <= 30) category = "pop";
+		if (musicDto.getTemp() >= 10 && musicDto.getTemp() <= 14) category = "rock";
 		return category;
 	}
 }
